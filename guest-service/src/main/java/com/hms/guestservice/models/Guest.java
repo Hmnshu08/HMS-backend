@@ -1,53 +1,42 @@
 package com.hms.guestservice.models;
 
-import javax.validation.constraints.NotNull;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Document(collection="guest")
 public class Guest {
-	@Id	
-	private String id;
-	
-	@NotNull(message="Name cannot be null")
+	private int GuestCode;
 	private String name;
 	private String gender;
-	
-	@NotNull(message="Email cannot be null")
 	private String email;
 	private String city;
 	private String state;
 	private	String country;
-	
-	@NotNull(message="postal code cannot be null")
-	private String postalCode;
-	
-	@NotNull(message="IdType cannot be null")
+	private int postalCode;
 	private String idType;
-	
-	@NotNull(message="Gov ID cannot be null")
 	private String govId;
-	private String addresss;
+	private String Address;
+	private int contact;
+	private int phone;
 	
-	@NotNull(message="Contact cannot be null")
-	private String contact;
-	private String phone;
-	
-	public String getId() {
-		return id;
+	public Guest(int guestCode, String name, String gender, String email, String city, String state, String country,
+			int postalCode, String idType, String govId, String address, int contact, int phone) {
+		super();
+		this.GuestCode = guestCode;
+		this.name = name;
+		this.gender = gender;
+		this.email = email;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postalCode = postalCode;
+		this.idType = idType;
+		this.govId = govId;
+		this.Address = address;
+		this.contact = contact;
+		this.phone = phone;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public int getGuestCode() {
+		return GuestCode;
+	}
+	public void setGuestCode(int guestCode) {
+		GuestCode = guestCode;
 	}
 	public String getName() {
 		return name;
@@ -85,10 +74,10 @@ public class Guest {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public String getPostalCode() {
+	public int getPostalCode() {
 		return postalCode;
 	}
-	public void setPostalCode(String postalCode) {
+	public void setPostalCode(int postalCode) {
 		this.postalCode = postalCode;
 	}
 	public String getIdType() {
@@ -103,40 +92,22 @@ public class Guest {
 	public void setGovId(String govId) {
 		this.govId = govId;
 	}
-	public String getAddresss() {
-		return addresss;
+	public String getAddress() {
+		return Address;
 	}
-	public void setAddresss(String addresss) {
-		this.addresss = addresss;
+	public void setAddress(String address) {
+		Address = address;
 	}
-	public String getContact() {
+	public int getContact() {
 		return contact;
 	}
-	public void setContact(String contact) {
+	public void setContact(int contact) {
 		this.contact = contact;
 	}
-	public String getPhone() {
+	public int getPhone() {
 		return phone;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	
-	public Guest(String id, String name, String gender, String email, String city, String state, String country,
-			String postalCode, String idType, String govId, String addresss, String contact, String phone) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.email = email;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.postalCode = postalCode;
-		this.idType = idType;
-		this.govId = govId;
-		this.addresss = addresss;
-		this.contact = contact;
+	public void setPhone(int phone) {
 		this.phone = phone;
 	}
 	

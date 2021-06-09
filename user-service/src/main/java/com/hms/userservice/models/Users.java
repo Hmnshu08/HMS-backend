@@ -1,40 +1,24 @@
 package com.hms.userservice.models;
 
-import javax.validation.constraints.NotNull;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Document(collection="users")
 public class Users {
 
-	@Id	
-	private String id;
-	
-	@NotNull(message="Name cannot be null")
 	private String username;
-	@NotNull(message="Name cannot be null")
 	private String pass;
-	@NotNull(message="Name cannot be null")
 	private String userType;
-	@NotNull(message="Name cannot be null")
 	private String email;
 	
-	public String getId() {
-		return id;
+	
+	
+	
+	
+	public Users(String username, String pass, String userType, String email) {
+		super();
+		this.username = username;
+		this.pass = pass;
+		this.userType = userType;
+		this.email = email;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -60,20 +44,6 @@ public class Users {
 		this.email = email;
 	}
 	
-	public Users(String id, @NotNull(message = "Name cannot be null") String username,
-			@NotNull(message = "Name cannot be null") String pass,
-			@NotNull(message = "Name cannot be null") String userType,
-			@NotNull(message = "Name cannot be null") String email) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.pass = pass;
-		this.userType = userType;
-		this.email = email;
-	}
-	
-	
-
 	
 	
 }
