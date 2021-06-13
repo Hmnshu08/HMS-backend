@@ -26,6 +26,9 @@ public class GuestServiceImpl implements GuestService {
 		Optional<Guest> guestOptional= guestRepo.findByemail(guest.getEmail());
 		Optional<Guest> guestOptional1= guestRepo.findBycontact(guest.getContact());
 		Optional<Guest> guestOptional2= guestRepo.findBygovId(guest.getGovId());
+		Optional<Guest> guestOptional3= guestRepo.findByguestCode(guest.getGuestCode());
+		
+		
 		
 		if(guestOptional.isPresent())
         {
@@ -36,6 +39,9 @@ public class GuestServiceImpl implements GuestService {
 		}
 		else if(guestOptional2.isPresent()) {
 			throw new GuestCollectionException(GuestCollectionException.GovIdAlreadyExists());
+		}
+		else if(guestOptional3.isPresent()) {
+			throw new GuestCollectionException(GuestCollectionException.GuestCodeAlreadyExists());
 		}
         else
         {
@@ -94,6 +100,7 @@ public class GuestServiceImpl implements GuestService {
 			
 			Guest guestToUpdate = guestWithId.get();
 			
+			guestToUpdate.setGuestCode(guest.getGuestCode());
 			guestToUpdate.setName(guest.getName());
 			guestToUpdate.setGender(guest.getGender());
 			guestToUpdate.setEmail(guest.getEmail());

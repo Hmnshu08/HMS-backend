@@ -28,4 +28,9 @@ public class GuestCollectionException extends Exception {
 		return "Guest with given govId number already exists";
 	}
 	
+	//exception for the same government ID number
+		public static String GuestCodeAlreadyExists() {
+			return "Guest with this guestCode already exists";
+		}
+	
 }

@@ -19,8 +19,12 @@ public class Guest {
 	@Id	
 	private String id;
 	
+	@NotNull(message="Guest Code cannot be null")
+	private int guestCode;
+	
 	@NotNull(message="Name cannot be null")
 	private String name;
+	
 	private String gender;
 	
 	@NotNull(message="Email cannot be null")
@@ -43,11 +47,49 @@ public class Guest {
 	private String contact;
 	private String phone;
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Guest(String id, @NotNull(message = "Guest Code cannot be null") int guestCode,
+			@NotNull(message = "Name cannot be null") String name, String gender,
+			@NotNull(message = "Email cannot be null") String email, String city, String state, String country,
+			@NotNull(message = "postal code cannot be null") String postalCode,
+			@NotNull(message = "IdType cannot be null") String idType,
+			@NotNull(message = "Gov ID cannot be null") String govId, String addresss,
+			@NotNull(message = "Contact cannot be null") String contact, String phone) {
+		super();
+		this.id = id;
+		this.guestCode = guestCode;
+		this.name = name;
+		this.gender = gender;
+		this.email = email;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.postalCode = postalCode;
+		this.idType = idType;
+		this.govId = govId;
+		this.addresss = addresss;
+		this.contact = contact;
+		this.phone = phone;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public int getGuestCode() {
+		return guestCode;
+	}
+	public void setGuestCode(int guestCode) {
+		this.guestCode = guestCode;
 	}
 	public String getName() {
 		return name;
@@ -122,23 +164,7 @@ public class Guest {
 		this.phone = phone;
 	}
 	
-	public Guest(String id, String name, String gender, String email, String city, String state, String country,
-			String postalCode, String idType, String govId, String addresss, String contact, String phone) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.email = email;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.postalCode = postalCode;
-		this.idType = idType;
-		this.govId = govId;
-		this.addresss = addresss;
-		this.contact = contact;
-		this.phone = phone;
-	}
+	
 	
 	
 	

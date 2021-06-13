@@ -21,5 +21,8 @@ public interface GuestRepository extends MongoRepository<Guest, String> {
 	@Query("{'govId':?0}")
 	Optional<Guest> findBygovId(String govId);
 	
+	@Query("{'guestCode':?0}")
+	Optional<Guest> findByguestCode(int guestCode);
+	
 	
 }

@@ -1,28 +1,67 @@
 package com.hms.reservationservice.models;
 
-public class Reservation {
+import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection="reservations")
+public class Reservation {
+	@Id	
+	private String id;
+	@NotNull(message="Guest Code cannot be null")
 	private int guestCode;
-	private String Name;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	private Date checkIn;
+	
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	private Date checkOut;
+	
+	@NotNull(message="Room number cannot be null")
 	private int roomNumber;
-	private String checkIn;
-	private String checkOut;
-	private String roomType;
 	private int numberOfNights;
-	private int Adults;
+	private int adults;
 	private int childrens;
 	private String reservationBy;
+	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getGuestCode() {
 		return guestCode;
 	}
 	public void setGuestCode(int guestCode) {
 		this.guestCode = guestCode;
 	}
-	public String getName() {
-		return Name;
+	public Date getCheckIn() {
+		return checkIn;
 	}
-	public void setName(String name) {
-		Name = name;
+	public void setCheckIn(Date checkIn) {
+		this.checkIn = checkIn;
+	}
+	public Date getCheckOut() {
+		return checkOut;
+	}
+	public void setCheckOut(Date checkOut) {
+		this.checkOut = checkOut;
 	}
 	public int getRoomNumber() {
 		return roomNumber;
@@ -30,36 +69,20 @@ public class Reservation {
 	public void setRoomNumber(int roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-	public String getCheckIn() {
-		return checkIn;
-	}
-	public void setCheckIn(String checkIn) {
-		this.checkIn = checkIn;
-	}
-	public String getCheckOut() {
-		return checkOut;
-	}
-	public void setCheckOut(String checkOut) {
-		this.checkOut = checkOut;
-	}
-	public String getRoomType() {
-		return roomType;
-	}
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}
 	public int getNumberOfNights() {
 		return numberOfNights;
 	}
 	public void setNumberOfNights(int numberOfNights) {
 		this.numberOfNights = numberOfNights;
 	}
+	
 	public int getAdults() {
-		return Adults;
+		return adults;
 	}
 	public void setAdults(int adults) {
-		Adults = adults;
+		this.adults = adults;
 	}
+	
 	public int getChildrens() {
 		return childrens;
 	}
@@ -72,20 +95,25 @@ public class Reservation {
 	public void setReservationBy(String reservationBy) {
 		this.reservationBy = reservationBy;
 	}
-	public Reservation(int guestCode, String name, int roomNumber, String checkIn, String checkOut, String roomType,
-			int numberOfNights, int adults, int childrens, String reservationBy) {
+	
+	
+	public Reservation(String id, @NotNull(message = "Guest Code cannot be null") int guestCode, Date checkIn,
+			Date checkOut, @NotNull(message = "Room number cannot be null") int roomNumber, int numberOfNights,
+			int adults, int childrens, String reservationBy) {
 		super();
+		this.id = id;
 		this.guestCode = guestCode;
-		Name = name;
-		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
-		this.roomType = roomType;
+		this.roomNumber = roomNumber;
 		this.numberOfNights = numberOfNights;
-		Adults = adults;
+		this.adults = adults;
 		this.childrens = childrens;
 		this.reservationBy = reservationBy;
 	}
+	
+	
+	
 	
 	
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hms.guestservice.exception.GuestCollectionException;
@@ -23,6 +24,7 @@ import com.hms.guestservice.repository.GuestRepository;
 import com.hms.guestservice.service.GuestService;
 
 @RestController
+//@RequestMapping("/api")
 public class GuestController {
 	
 	@Autowired
@@ -88,7 +90,7 @@ public class GuestController {
 		
 		try {
 			guestService.updateGuest(id, guest);
-			return new ResponseEntity<>("Updated guestwith id" +id ,HttpStatus.OK);
+			return new ResponseEntity<>("Updated guest with id" +id ,HttpStatus.OK);
 		} catch (ConstraintViolationException e) {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.UNPROCESSABLE_ENTITY);
 		} catch(GuestCollectionException e) {
