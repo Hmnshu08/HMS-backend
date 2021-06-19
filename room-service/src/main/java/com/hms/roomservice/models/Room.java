@@ -4,13 +4,16 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
+@ApiModel(description="Room Model" )
 @Setter
 @Getter
 @AllArgsConstructor
@@ -18,17 +21,35 @@ import lombok.Setter;
 @Document(collection="room")
 public class Room {
 	@Id	
+	@ApiModelProperty(notes="ID of the room", name="id", required = true, value="60c09475jhbf4a51fe8a96e6f")
 	private String id;
 	
+	@ApiModelProperty(notes="room number of the room", name="roomNumber", required = true, value="1021")
 	@NotNull(message="Room Number cannot be null")
 	private int roomNumber;
+	
+	@ApiModelProperty(notes="Room name of the room", name="name", value="Moon")
 	private String name;
+	
+	@ApiModelProperty(notes="Description name of the room", name="description", value="Room is very comfortable and economic.")
 	private String description;
+	
+	@ApiModelProperty(notes="Block of the room", name="block", value="A")
 	private String block;
+	
+	@ApiModelProperty(notes="floor number of the room", name="floor", value="1")
 	private int floor;
+	
+	@ApiModelProperty(notes="Satus of the room", name="status", value="Available")
 	private String status;
+	
+	@ApiModelProperty(notes="Room type of the room", name="roomType", value="Silver")
 	private String roomType;
+	
+	@ApiModelProperty(notes="Standard Price type of the room", name="standardPrice", value="800")
 	private int standardPrice;
+	
+	@ApiModelProperty(notes="Festive Price type of the room", name="festivePrice", value="1000")
 	private int festivePrice;
 	
 	

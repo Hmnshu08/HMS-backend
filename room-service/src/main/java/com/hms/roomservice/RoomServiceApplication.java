@@ -18,6 +18,9 @@ public class RoomServiceApplication {
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
+	
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(RoomServiceApplication.class, args);
 	}

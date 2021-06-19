@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,14 @@ import com.hms.staffservice.models.Staff;
 import com.hms.staffservice.repository.StaffRepository;
 import com.hms.staffservice.service.StaffService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
-@RestController
 //@RequestMapping("/api")
+@ApiOperation(value = "/staff", tags = "Staff Controller")
+@RestController
 public class StaffController {
 
 	@Autowired
@@ -35,6 +40,13 @@ public class StaffController {
 	private StaffService staffService;
 	
 	//getting all the documents
+	@ApiOperation(value = "Fetch all Staff", response = Staff.class)
+	@ApiResponses(value= {
+			@ApiResponse(code = 200, message = "SUCCESS", response = Staff.class),
+			@ApiResponse(code = 401, message = "UNAUTHORIZED!", response = Staff.class),
+			@ApiResponse(code = 403, message = "FORBIDDEN", response = Staff.class),
+			@ApiResponse(code = 404, message = "NOT FOUND")
+	})
 	@GetMapping("/staff")
 	public ResponseEntity<?> getAllStaff(){
 		
@@ -45,6 +57,8 @@ public class StaffController {
 	}
 	
 	//adding a new document
+	@ApiOperation(value = "Post a new Staff", response = Staff.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 		@PostMapping("/staff")
 		public ResponseEntity<?> createStaff(@RequestBody Staff staff){
 			try {
@@ -63,6 +77,8 @@ public class StaffController {
 		
 		
 		//getting the document by id
+		@ApiOperation(value = "Get a Staff by Id", response = Staff.class)
+		@CrossOrigin(origins = "http://localhost:3000")
 		@GetMapping("/staff/{id}")
 		public ResponseEntity<?> getSingleStaff(@PathVariable("id") String id){
 			
@@ -75,6 +91,9 @@ public class StaffController {
 	
 		
 		//update mapping
+		@ApiResponse(code = 200, message = "SUCCESS", response = Staff.class, responseContainer = "List")
+		@ApiOperation(value = "Update a staff by Id", response = Staff.class)
+		@CrossOrigin(origins = "http://localhost:3000")
 		@PutMapping("/staff/{id}")
 		public ResponseEntity<?> updateStaff(@PathVariable("id") String id,@RequestBody Staff staff){
 			
@@ -89,7 +108,7 @@ public class StaffController {
 		}
 	
 		
-		
+		@ApiOperation(value = "Delete a staff by Id", response = Staff.class)
 		@DeleteMapping("/staff/{id}")
 		public ResponseEntity<?> deleteById(@PathVariable("id") String id){
 			try {

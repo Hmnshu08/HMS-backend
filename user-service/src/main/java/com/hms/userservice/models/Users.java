@@ -5,11 +5,14 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@ApiModel(description="User Model" )
 @Setter
 @Getter
 @AllArgsConstructor
@@ -18,14 +21,22 @@ import lombok.Setter;
 public class Users {
 
 	@Id	
+	@ApiModelProperty(notes="ID of the user", name="id", required = true, value="60c09475jhbf4a51fe8a96e6f")
 	private String id;
 	
+	@ApiModelProperty(notes="username of the user", name="username", required = true, value="hmnshu")
 	@NotNull(message="Name cannot be null")
 	private String username;
+	
+	@ApiModelProperty(notes="Password of the user", name="pass", required = true, value="12345")
 	@NotNull(message="Name cannot be null")
 	private String pass;
+	
+	@ApiModelProperty(notes="User Type of the user", name="userType", required = true, value="Manager")
 	@NotNull(message="Name cannot be null")
 	private String userType;
+	
+	@ApiModelProperty(notes="Email Type of the user", name="email", required = true, value="abc@xyz.com")
 	@NotNull(message="Name cannot be null")
 	private String email;
 	

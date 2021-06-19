@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +24,16 @@ import com.hms.reservationservice.repository.ReservationRepository;
 import com.hms.reservationservice.service.ReservationService;
 
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
-@RestController
+
+
+
 //@RequestMapping("/api")
+@RestController
+@ApiOperation(value = "/reservation", tags = "Booking Controller")
 public class ReservationController {
 	
 	@Autowired
@@ -37,13 +45,25 @@ public class ReservationController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	
+	@ApiOperation(value = "Fetch all Reservations", response = Reservation.class)
+	@ApiResponses(value= {
+			@ApiResponse(code = 200, message = "SUCCESS", response = Reservation.class),
+			@ApiResponse(code = 401, message = "UNAUTHORIZED!", response = Reservation.class),
+			@ApiResponse(code = 403, message = "FORBIDDEN", response = Reservation.class),
+			@ApiResponse(code = 404, message = "NOT FOUND")
+	})
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/reservation")
 	public ResponseEntity<?> getAllReservation(){
 		
 		
 		
 		List<Reservation> reservation = reservationService.getAllReservation();
+		
+//		List guestDetails = this.restTemplate.getForObject("http://GUEST-SERVICE:8081/guest"+ reservation.getGuestCode(),List.class);
+		
+		
+		
 		return new ResponseEntity<>(reservation,reservation.size()>0 ? HttpStatus.OK:HttpStatus.NOT_FOUND);
 		
 	}
@@ -51,7 +71,7 @@ public class ReservationController {
 	
 //	@GetMapping("/{guestCode}")
 //	public Reservation getGuest(@PathVariable("guestCode") int guestCode) {
-//		return guest.stream().map()
+//		return guest.stream().map();
 //		restTemplate.getForEntity("http://localhost:8081/guest" + guest.getguestCode(),Guest.class);
 //		
 //		
@@ -61,6 +81,8 @@ public class ReservationController {
 	
 	
 	//adding a new document
+	@ApiOperation(value = "Post a new reservation", response = Reservation.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/reservation")
 	public ResponseEntity<?> createReservation(@RequestBody Reservation reservation){
 		try {
@@ -77,6 +99,8 @@ public class ReservationController {
 		}
 	}
 	
+	@ApiOperation(value = "Get a reservation by Id", response = Reservation.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	//getting the document by id
 	@GetMapping("/reservation/{id}")
 	public ResponseEntity<?> getSingleReservation(@PathVariable("id") String id){
@@ -96,6 +120,9 @@ public class ReservationController {
 	
 	
 	//update mapping
+	@ApiResponse(code = 200, message = "SUCCESS", response = Reservation.class, responseContainer = "List")
+	@ApiOperation(value = "Update a reservation by Id", response = Reservation.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/reservation/{id}")
 	public ResponseEntity<?> updateReservation(@PathVariable("id") String id,@RequestBody Reservation reservation){
 		
@@ -111,7 +138,8 @@ public class ReservationController {
 
 	}
 	
-	
+	@ApiOperation(value = "Delete a reservation by Id", response = Reservation.class)	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/reservation/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") String id){
 		try {

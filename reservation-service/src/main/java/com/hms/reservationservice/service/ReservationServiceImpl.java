@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.hms.reservationservice.exception.ReservationCollectionException;
+import com.hms.reservationservice.models.Guest;
 import com.hms.reservationservice.models.Reservation;
 import com.hms.reservationservice.repository.ReservationRepository;
 
@@ -100,6 +101,8 @@ Optional<Reservation> reservationOptonal = reservationRepo.findById(id);
 		}
 		
 	}
+
+	
 
 	
 	

@@ -10,11 +10,13 @@ import org.springframework.data.annotation.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+@ApiModel(description="Staff Model" )
 @Setter
 @Getter
 @AllArgsConstructor
@@ -25,21 +27,35 @@ public class Staff {
 //	@Transient
 //	private static final String SEQUENCE_NAME="user_sequence";
 	
-	@Id	
+	@Id
+	@ApiModelProperty(notes="ID of the Staff", name="id", required = true, value="60c09475jhbf4a51fe8a96e6f")
 	private String id;
 	
+//	@ApiModelProperty(notes="empid of the user", name="employeeId", required = true, value="1206")
 //	@NotNull(message="EmpId cannot be null")
 //	private String employeeId;
 	
+	@ApiModelProperty(notes="Name of the Staff", name="name", required = true, value="Aman")
 	@NotNull(message="Name cannot be null")
 	private String name;
 	
+	@ApiModelProperty(notes="email of the Staff", name="email", required = true, value="abc@xyz.com")
 	@NotNull(message="Email cannot be null")
 	private String email;
+	
+	@ApiModelProperty(notes="Gender of the Staff", name="gender", value="M")
 	private String gender;
+	
+	@ApiModelProperty(notes="Department of the Staff", name="department", value="Ground")
 	private String department;
+	
+	@ApiModelProperty(notes="Salay of the Staff", name="salary", value="22000")
 	private String salary;
+	
+	@ApiModelProperty(notes="Contact Number of the Staff", name="contactNumber", value="659874123")
 	private String contactNumber;
+	
+	@ApiModelProperty(notes="Position of the Staff", name="position", value="Manager")
 	private String position;
 	
 	

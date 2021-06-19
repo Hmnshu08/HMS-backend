@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,14 @@ import com.hms.userservice.models.Users;
 import com.hms.userservice.repository.UsersRepository;
 import com.hms.userservice.service.UsersService;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
-@RestController
 //@RequestMapping("/api")
+@ApiOperation(value = "/users", tags = "Users Controller")
+@RestController
 public class UsersController {
 
 	
@@ -37,6 +42,14 @@ public class UsersController {
 	
 	
 	//getting all the documents
+	@ApiOperation(value = "Fetch all Users", response = Users.class)
+	@ApiResponses(value= {
+			@ApiResponse(code = 200, message = "SUCCESS", response = Users.class),
+			@ApiResponse(code = 401, message = "UNAUTHORIZED!", response = Users.class),
+			@ApiResponse(code = 403, message = "FORBIDDEN", response = Users.class),
+			@ApiResponse(code = 404, message = "NOT FOUND")
+	})
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/users")
 	public ResponseEntity<?> getAllUsers(){
 		List<Users> users = usersService.getAllUsers();
@@ -46,6 +59,8 @@ public class UsersController {
 	
 	
 	//adding a new document
+	@ApiOperation(value = "Post a new User", response = Users.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/users")
 	public ResponseEntity<?> createUsers(@RequestBody Users users){
 		try {
@@ -61,6 +76,8 @@ public class UsersController {
 	}
 	
 	//getting the document by id
+	@ApiOperation(value = "Get a User by Id", response = Users.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> getSingleUsers(@PathVariable("id") String id){
 		
@@ -76,6 +93,9 @@ public class UsersController {
 	
 	
 	//update mapping
+	@ApiResponse(code = 200, message = "SUCCESS", response = Users.class, responseContainer = "List")
+	@ApiOperation(value = "Update a user by Id", response = Users.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/users/{id}")
 	public ResponseEntity<?> updateUsers(@PathVariable("id") String id,@RequestBody Users users){
 		
@@ -92,7 +112,8 @@ public class UsersController {
 	
 	
 	
-	
+	@ApiOperation(value = "Delete a user by Id", response = Users.class)	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") String id){
 		try {

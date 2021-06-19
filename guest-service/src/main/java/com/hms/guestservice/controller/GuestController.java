@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +24,16 @@ import com.hms.guestservice.models.Guest;
 import com.hms.guestservice.repository.GuestRepository;
 import com.hms.guestservice.service.GuestService;
 
-@RestController
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+
+
 //@RequestMapping("/api")
+@ApiOperation(value = "/guest", tags = "Guest Controller")
+@RestController
 public class GuestController {
 	
 	@Autowired
@@ -33,6 +42,15 @@ public class GuestController {
 	@Autowired
 	private GuestService guestService;
 	
+
+	@ApiOperation(value = "Fetch all Guest", response = Guest.class)
+	@ApiResponses(value= {
+			@ApiResponse(code = 200, message = "SUCCESS", response = Guest.class),
+			@ApiResponse(code = 401, message = "UNAUTHORIZED!", response = Guest.class),
+			@ApiResponse(code = 403, message = "FORBIDDEN", response = Guest.class),
+			@ApiResponse(code = 404, message = "NOT FOUND")
+	})
+	@CrossOrigin(origins = "http://localhost:3000")
 	//getting all the documents
 	@GetMapping("/guest")
 	public ResponseEntity<?> getAllGuest(){
@@ -42,6 +60,8 @@ public class GuestController {
 	}
 	
 	//adding a new document
+	@ApiOperation(value = "Post a new guest", response = Guest.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/guest")
 	public ResponseEntity<?> createGuest(@RequestBody Guest guest){
 		try {
@@ -59,6 +79,8 @@ public class GuestController {
 	}
 	
 	//getting the document by id
+	@ApiOperation(value = "Get a guest by Id", response = Guest.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/guest/{id}")
 	public ResponseEntity<?> getSingleGuest(@PathVariable("id") String id){
 		
@@ -85,6 +107,9 @@ public class GuestController {
 	
 	
 	//update mapping
+	@ApiResponse(code = 200, message = "SUCCESS", response = Guest.class, responseContainer = "List")
+	@ApiOperation(value = "Update a Guest by Id", response = Guest.class)
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/guest/{id}")
 	public ResponseEntity<?> updateGuest(@PathVariable("id") String id,@RequestBody Guest guest){
 		
@@ -125,7 +150,8 @@ public class GuestController {
 //		}
 	}
 	
-	
+	@ApiOperation(value = "Delete a guest by Id", response = Guest.class)	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/guest/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") String id){
 		try {
